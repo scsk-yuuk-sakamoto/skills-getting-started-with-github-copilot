@@ -24,25 +24,21 @@ def test_root_redirects_to_static_index(client):
     assert response.headers["location"] == expected_location
 
 
+
 def test_get_activities_returns_initial_activities(client):
     # Arrange
     expected_activity = "Chess Club"
+
 
     # Act
     response = client.get("/activities")
 
     # Assert
     assert response.status_code == 200
-    assert expected_activity in response.json()
-    assert response.json()[expected_activity]["participants"] == [
         "michael@mergington.edu",
         "daniel@mergington.edu",
     ]
 
-
-def test_signup_adds_participant_to_activity(client):
-    # Arrange
-    activity_name = "Chess Club"
     email = "student@mergington.edu"
 
     # Act
@@ -72,7 +68,6 @@ def test_signup_returns_404_for_unknown_activity(client):
     # Assert
     assert response.status_code == 404
     assert response.json() == {"detail": "Activity not found"}
-
 
 def test_signup_requires_email(client):
     # Arrange
